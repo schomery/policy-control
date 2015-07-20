@@ -1,0 +1,36 @@
+body {
+  font-family: arial,sans-serif;
+  font-size: 12px;
+  padding: 10px;
+  margin: 0;
+  min-width: 400px;
+  overflow: hidden;
+  background-color: #fff;
+}
+h1 {
+  font-size: 110%;
+  font-weight: normal;
+}
+ul {
+  list-style-type: none;
+  padding-left: 15px;
+}
+li {
+  position: relative;
+}
+li span:last-child {
+  position: absolute;
+  right: 0;
+  text-align: right;
+  width: 100px;
+}
+li:hover {
+  background-color: #eee;
+}
+.button {
+  cursor: pointer;
+  -moz-user-select: none;
+}
+.button:before {
+  padding-right: 5px;
+}
