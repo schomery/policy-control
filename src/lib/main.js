@@ -1,6 +1,5 @@
 'use strict';
 
-var {ToggleButton} = require('sdk/ui/button/toggle');
 var panels = require('sdk/panel');
 var self = require('sdk/self');
 var sp = require('sdk/simple-prefs');
@@ -11,6 +10,11 @@ var unload = require('sdk/system/unload');
 var runtime = require('sdk/system/runtime');
 var pageMod = require('sdk/page-mod');
 var policy = require('./policy');
+var {ToggleButton} = require('sdk/ui/button/toggle');
+var {Cu} = require('chrome');
+
+var {devtools} = Cu.import('resource://gre/modules/devtools/Loader.jsm');
+var HUDService = devtools.require('devtools/webconsole/hudservice');
 
 var path = './icons/' + (runtime.OS === 'Darwin' ? 'mac/' : '');
 
@@ -67,7 +71,6 @@ panel.port.on('size', function (obj) {
   panel.height = obj.height;
 });
 
-
 panel.port.on('get-preference', function (name) {
   panel.port.emit('set-preference', {
     name,
@@ -88,6 +91,10 @@ sp.on('*', function (name) {
 panel.port.on('command', function (obj) {
   if (obj.cmd === 'options') {
     options();
+    panel.hide();
+  }
+  if (obj.cmd === 'console') {
+    HUDService.openBrowserConsoleOrFocus();
     panel.hide();
   }
   if (obj.cmd.indexOf('log-') === 0 || obj.cmd === 'private') {

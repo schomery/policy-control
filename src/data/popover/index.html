@@ -18,12 +18,13 @@
       <li data-policy="subrequest"><span title="Indicates a request by a plugin">Plugins on </span><a href='#' data-mod='f'>all</a><span class="button icon-toggle-off">On</span></li>
       <li data-policy="websocket"><span title="Indicates a WebSocket load. ">WebSocket on </span><a href='#' data-mod='f'>all</a><span class="button icon-toggle-off">On</span></li>
       <li data-policy="ping"><span title="Indicates a ping triggered by a click on <A PING='...'> element">Ping on </span><a href='#' data-mod='f'>all</a><span class="button icon-toggle-off">On</span></li>
+      <li data-policy="beacon"><span title="Indicates a beacon post.">Beacon on </span><a href='#' data-mod='f'>all</a><span class="button icon-toggle-off">On</span></li>
     </ul>
     <center>
       <input type="button" data-cmd='enable' data-value='true' value="Disable all filters temporarily">
     </center>
     <div>
-      <label><input type="checkbox" data-cmd="log-blocked">Log blocked URLs in the Error Console<sup>3</sup>.</label>
+      <label><input type="checkbox" data-cmd="log-blocked">Log blocked URLs in the <a data-cmd='console' href='#'>Error Console</a><sup>3</sup>.</label>
       <br>
       <label><input type="checkbox" data-cmd="log-passed">Log passed URLs in the Error Console<sup>2</sup>.</label>
       <br>
@@ -35,6 +36,6 @@
       <br>
       2, 3: Disable these options to increase performance.
       <br>
-      4: Instead of temporary disabling all rules to be able to browse a website that is not loading while policy rules are enabled, it is recommended to turn off policy rules permanently in the private browsing mode.
+      4: Instead of temporary disabling all rules, it is recommended to turn off policy rules permanently in the private browsing mode.
   </body>
 </html>

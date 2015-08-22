@@ -27,7 +27,8 @@ var types = {
   12: 'TYPE_OBJECT_SUBREQUEST',
   14: 'TYPE_FONT',
   15: 'TYPE_MEDIA',
-  16: 'TYPE_WEBSOCKET'
+  16: 'TYPE_WEBSOCKET',
+  19: 'TYPE_BEACON'
 };
 
 function getContext (context) {
@@ -121,6 +122,9 @@ var policy = new Class({
       }
       return Ci.nsIContentPolicy.ACCEPT;
     }
+    if (!reqOrig || !reqOrig.spec) {
+      return Ci.nsIContentPolicy.ACCEPT;
+    }
     if (reqOrig.spec.indexOf('http') === 0 && contLoc.spec.indexOf('http') === 0 && types[contType]) {
       if (
         contType === Ci.nsIContentPolicy.TYPE_FONT && !prefs['policy-font'] ||
@@ -133,7 +137,8 @@ var policy = new Class({
         contType === Ci.nsIContentPolicy.TYPE_XMLHTTPREQUEST && !prefs['policy-request'] ||
         contType === Ci.nsIContentPolicy.TYPE_OBJECT_SUBREQUEST && !prefs['policy-subrequest'] ||
         contType === Ci.nsIContentPolicy.TYPE_WEBSOCKET && !prefs['policy-websocket'] ||
-        contType === Ci.nsIContentPolicy.TYPE_PING && !prefs['policy-ping']
+        contType === Ci.nsIContentPolicy.TYPE_PING && !prefs['policy-ping'] ||
+        contType === Ci.nsIContentPolicy.TYPE_BEACON && !prefs['policy-beacon']
       ) {
         return Ci.nsIContentPolicy.ACCEPT;
       }
@@ -188,6 +193,7 @@ exports.filters = function (filters) {
   af[Ci.nsIContentPolicy.TYPE_OBJECT_SUBREQUEST] = filters.filter(o => o.enabled && o.type === 'TYPE_OBJECT_SUBREQUEST');
   af[Ci.nsIContentPolicy.TYPE_WEBSOCKET] = filters.filter(o => o.enabled && o.type === 'TYPE_WEBSOCKET');
   af[Ci.nsIContentPolicy.TYPE_PING] = filters.filter(o => o.enabled && o.type === 'TYPE_PING');
+  af[Ci.nsIContentPolicy.TYPE_BEACON] = filters.filter(o => o.enabled && o.type === 'TYPE_BEACON');
 };
 
 unload.when(function () {
@@ -196,8 +202,8 @@ unload.when(function () {
 });
 
 (function () {
-  var policies = ['font', 'image', 'media', 'object', 'stylesheet', 'script', 'subdomain', 'request', 'subrequest', 'websocket', 'ping'];
-  var codes = [Ci.nsIContentPolicy.TYPE_FONT, Ci.nsIContentPolicy.TYPE_IMAGE, Ci.nsIContentPolicy.TYPE_MEDIA, Ci.nsIContentPolicy.TYPE_OBJECT, Ci.nsIContentPolicy.TYPE_STYLESHEET, Ci.nsIContentPolicy.TYPE_SCRIPT, Ci.nsIContentPolicy.TYPE_SUBDOCUMENT, Ci.nsIContentPolicy.TYPE_XMLHTTPREQUEST, Ci.nsIContentPolicy.TYPE_OBJECT_SUBREQUEST, Ci.nsIContentPolicy.TYPE_WEBSOCKET, Ci.nsIContentPolicy.TYPE_PING]
+  var policies = ['font', 'image', 'media', 'object', 'stylesheet', 'script', 'subdomain', 'request', 'subrequest', 'websocket', 'ping', 'beacon'];
+  var codes = [Ci.nsIContentPolicy.TYPE_FONT, Ci.nsIContentPolicy.TYPE_IMAGE, Ci.nsIContentPolicy.TYPE_MEDIA, Ci.nsIContentPolicy.TYPE_OBJECT, Ci.nsIContentPolicy.TYPE_STYLESHEET, Ci.nsIContentPolicy.TYPE_SCRIPT, Ci.nsIContentPolicy.TYPE_SUBDOCUMENT, Ci.nsIContentPolicy.TYPE_XMLHTTPREQUEST, Ci.nsIContentPolicy.TYPE_OBJECT_SUBREQUEST, Ci.nsIContentPolicy.TYPE_WEBSOCKET, Ci.nsIContentPolicy.TYPE_PING, Ci.nsIContentPolicy.TYPE_BEACON];
 
   policies.forEach((p, i) => modes[codes[i]] = prefs['mod-' + p]);
   sp.on('*', function (pref) {
