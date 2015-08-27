@@ -5,6 +5,7 @@ var self = require('sdk/self');
 var sp = require('sdk/simple-prefs');
 var prefs = sp.prefs;
 var tabs = require('sdk/tabs');
+var timers = require('sdk/timers');
 var core = require('sdk/view/core');
 var unload = require('sdk/system/unload');
 var runtime = require('sdk/system/runtime');
@@ -194,3 +195,20 @@ pageMod.PageMod({
   }
 });
 sp.on('options', options);
+/* welcome */
+exports.main = function (options) {
+  if (options.loadReason === 'install' || options.loadReason === 'startup') {
+    var version = sp.prefs.version;
+    if (self.version !== version) {
+      if (true) {
+        timers.setTimeout(function () {
+          tabs.open(
+            'http://firefox.add0n.com/policy-control.html?v=' + self.version +
+            (version ? '&p=' + version + '&type=upgrade' : '&type=install')
+          );
+        }, 3000);
+      }
+      sp.prefs.version = self.version;
+    }
+  }
+};
