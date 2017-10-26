@@ -1,0 +1,104 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="index.css">
+  </head>
+  <body>
+    <table>
+      <colgroup>
+        <col>
+        <col width=100>
+        <col width=150>
+      </colgroup>
+      <thead>
+        <tr>
+          <th colspan="2">Status</th>
+          <td><input type="button" value="Open Log" host-only id="open-log"></td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><label for="enabled">Policy Control is</label></td>
+          <td class="state"></td>
+          <td><input type="checkbox" id="enabled"></td>
+        </tr>
+      </tbody>
+      <thead>
+        <tr>
+          <th>Policy Rules</th>
+          <td colspan="2" host-only title="If checked, current rules are only applied to this hostname. Other hostnames will use the global settings"><label for="hostname">Apply only to "<span id="hn"></span>"</label> <input type="checkbox" id="hostname"></td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Font (@font-face)</td>
+          <td class="state"></td>
+          <td><input id="font" type="range" min=0 max=2></td>
+        </tr>
+        <tr>
+          <td>Image</td>
+          <td class="state"></td>
+          <td><input id="image" type="range" min=0 max=2></td>
+        </tr>
+        <tr>
+          <td>Media (audio and video)</td>
+          <td class="state"></td>
+          <td><input id="media" type="range" min=0 max=2></td>
+        </tr>
+        <tr>
+          <td>Object (plugin-handled content)</td>
+          <td class="state"></td>
+          <td><input id="object" type="range" min=0 max=2></td>
+        </tr>
+        <tr>
+          <td>Script (JavaScript)</td>
+          <td class="state"></td>
+          <td><input id="script" type="range" min=0 max=2></td>
+        </tr>
+        <tr>
+          <td>Stylesheet (CSS)</td>
+          <td class="state"></td>
+          <td><input id="stylesheet" type="range" min=0 max=2></td>
+        </tr>
+        <tr>
+          <td>Sub Document (iframes and frames)</td>
+          <td class="state"></td>
+          <td><input id="sub_frame" type="range" min=0 max=2></td>
+        </tr>
+        <tr>
+          <td>XMLHttpRequest</td>
+          <td class="state"></td>
+          <td><input id="xmlhttprequest" type="range" min=0 max=2></td>
+        </tr>
+        <tr>
+          <td>Ping</td>
+          <td class="state"></td>
+          <td><input id="ping" type="range" min=0 max=2></td>
+        </tr>
+        <tr>
+          <td>Content-Security-Policy Reports</td>
+          <td class="state"></td>
+          <td><input id="csp_report" type="range" min=0 max=2></td>
+        </tr>
+        <tr>
+          <td>WebSocket</td>
+          <td class="state"></td>
+          <td><input id="websocket" type="range" min=0 max=2></td>
+        </tr>
+        <tr>
+          <td>Other Resources</td>
+          <td class="state"></td>
+          <td><input id="other" type="range" min=0 max=2></td>
+        </tr>
+      </tbody>
+    </table>
+    <p>
+      <input type="button" value="Options" id="open-options">
+      <input type="button" value="Reset" id="reset" title="Reset rule values to the defaults">
+      <input type="button" value="Save" id="save" title="Save rules globally or just for a single host">
+      <span id="info"></span>
+    </p>
+    <script src="index.js"></script>
+  </body>
+</html>

@@ -1,0 +1,42 @@
+body {
+  font-family: arial,sans-serif;
+  font-size: 12px;
+  width: 500px;
+  user-select: none;
+  background-color: #fff;
+}
+table {
+  width: 100%;
+  table-layout: fixed;
+  border-collapse: collapse;
+}
+th {
+  text-align: left;
+  height: 24px;
+  line-height: 24px;
+}
+tbody tr:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+td:last-of-type {
+  text-align: right;
+}
+
+body[data-perhost=false] [host-only] {
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+input[type=button] {
+  background-color: #fff;
+  color: #000;
+  border: solid 1px #ccc;
+  border-radius: 0;
+  min-width: 80px;
+  padding: 4px;
+}
+
+input {
+  outline: none;
+  cursor: pointer;
+}

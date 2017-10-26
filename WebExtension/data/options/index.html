@@ -1,0 +1,91 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Policy Control :: Options</title>
+  </head>
+  <body>
+    <style type="text/css">
+      body {
+        min-width: 500px;
+        font-family: "Helvetica Neue",Helvetica,sans-serif;
+        font-size: 13px;
+      }
+      input[type=text] {
+        width: 100%;
+        box-sizing: border-box;
+      }
+      td:first-of-type {
+        width: 10px;
+        white-space: nowrap;
+        overflow: visible;
+      }
+      td:last-of-type {
+        text-align: right;
+      }
+    </style>
+    <table width="100%">
+      <tr>
+        <td><label for="auto">Automatically enable "Policy Rules" after a restart</label></td>
+        <td><input type="checkbox" id="auto"></td>
+      </tr>
+    </table>
+    <p>Policy Control is blocking requests based on the general filtering rules defined in the popup (either for a single hostname or globally). In this section, you can define custom origins (e.g. https://www.google.com/ or https://*.google.com) to bypass the blockage. Note that the list only supports origins (for performance considerations, there is no RegExp support). Enter a comma-separated list of origins to bypass the general blockage rules for each category.</p>
+    <table width="100%">
+      <tr>
+        <td>Font (@font-face)</td>
+        <td><input type="text" id="bypass.font" placeholder="e.g.: https://www.google.com/, http://www.wikipedia.com/"></td>
+      </tr>
+      <tr>
+        <td>Image</td>
+        <td><input type="text" id="bypass.image"></td>
+      </tr>
+      <tr>
+        <td>Media (audio and video)</td>
+        <td><input type="text" id="bypass.media"></td>
+      </tr>
+      <tr>
+        <td>Object (plugin-handled content)</td>
+        <td><input type="text" id="bypass.object"></td>
+      </tr>
+      <tr>
+        <td>Script (JavaScript)</td>
+        <td><input type="text" id="bypass.script"></td>
+      </tr>
+      <tr>
+        <td>Stylesheet (CSS)</td>
+        <td><input type="text" id="bypass.stylesheet"></td>
+      </tr>
+      <tr>
+        <td>Sub Document (iframes and frames)</td>
+        <td><input type="text" id="bypass.sub_frame"></td>
+      </tr>
+      <tr>
+        <td>XMLHttpRequest</td>
+        <td><input type="text" id="bypass.xmlhttprequest"></td>
+      </tr>
+      <tr>
+        <td>Ping</td>
+        <td><input type="text" id="bypass.ping"></td>
+      </tr>
+      <tr>
+        <td>Content-Security-Policy Reports</td>
+        <td><input type="text" id="bypass.csp_report"></td>
+      </tr>
+      <tr>
+        <td>WebSocket</td>
+        <td><input type="text" id="bypass.websocket"></td>
+      </tr>
+      <tr>
+        <td>Other Resources</td>
+        <td><input type="text" id="bypass.other"></td>
+      </tr>
+    </table>
+    <p>
+      <input type="button" value="Save" id="save">
+      <span id="info"></span>
+    </p>
+
+    <script src="index.js"></script>
+  </body>
+</html>

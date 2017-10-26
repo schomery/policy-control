@@ -15,7 +15,13 @@ var {ToggleButton} = require('sdk/ui/button/toggle');
 var {Cu} = require('chrome');
 
 var {devtools} = Cu.import('resource://gre/modules/devtools/Loader.jsm');
-var HUDService = devtools.require('devtools/webconsole/hudservice');
+var HUDService;
+try {
+  HUDService = devtools.require('devtools/webconsole/hudservice');
+}
+catch (e) {
+  HUDService = devtools.require('devtools/client/webconsole/hudservice');
+}
 
 var path = './icons/' + (runtime.OS === 'Darwin' ? 'mac/' : '');
 
@@ -54,6 +60,12 @@ var button = new ToggleButton({
     }
   }
 });
+function state (obj) {
+  button.state('window', Object.assign({
+    badge: button.state('window').badge,
+    checked: button.state('window').checked
+  }, obj));
+}
 
 var panel = panels.Panel({
   contentScriptOptions: {
@@ -61,9 +73,7 @@ var panel = panels.Panel({
   },
   contentURL: self.data.url('popover/index.html'),
   contentScriptFile: self.data.url('popover/index.js'),
-  onHide: function () {
-    button.state('window', {checked: false});
-  }
+  onHide: () => state({checked: false})
 });
 core.getActiveView(panel).setAttribute('tooltip', 'aHTMLTooltip');
 
@@ -128,36 +138,9 @@ unload.when(function () {
     });
   }
 });
-/* badge */
-var counts = {};
-var badge = (function () {
-  var cache = {id: null, count: 0};
-  return function () {
-    var id = tabs.activeTab.id;
-    var count = counts[id];
-    if (count === cache.count) {
-      return;
-    }
-    cache.id = id;
-    cache.count = count;
-    button.badge = count ? count : '';
-  };
-})();
-tabs.on('activate', badge);
-
-function counter (id) {
-  if (id) {
-    counts[id] = (isNaN(counts[id]) ? 0 : counts[id]) + 1;
-    badge();
-  }
-}
 
 /* policy */
-policy.reset(function (id) {
-  counts[id] = 0;
-  badge(id);
-});
-policy.counter(counter);
+policy.badge(count => state({badge: count || ''}));
 policy.filters(filters.read());
 
 /* settings page */
@@ -195,6 +178,7 @@ pageMod.PageMod({
   }
 });
 sp.on('options', options);
+
 /* welcome */
 exports.main = function (options) {
   if (options.loadReason === 'install' || options.loadReason === 'startup') {

@@ -1,13 +1,13 @@
 {
-  "name": "ipcontrol",
-  "title": "Policy Control (JavaScript, CSS, Media, ...)",
-  "id": "jid1-gHwvGmJ8Ii9oOq",
+  "name": "Policy Control (JavaScript, CSS, Media, ...)",
+  "id": "jid1-gHwvGmJ8Ii9oOq@jetpack",
   "description": "This extension helps you quickly disable and enable different types of resources such as JavaScript, CSS, and Media. The extension can be used to increase privacy as well as saving bandwidth by blocking unwanted contents.",
   "author": "Jeremy Schomery",
   "license": "MPL 2.0",
   "version": "0.2.0",
   "icon": "data/icons/mac/32.png",
   "icon64": "data/icons/mac/64.png",
+  "main": "./lib/main.js",
   "permissions": {
     "private-browsing": true
   },

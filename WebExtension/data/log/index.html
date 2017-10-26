@@ -1,0 +1,70 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Logs :: Policy Control</title>
+  </head>
+  <body>
+    <style type="text/css">
+      body {
+        font-family: "Helvetica Neue",Helvetica,sans-serif;
+        font-size: 13px;
+      }
+      input[type=button] {
+        background-color: #fff;
+        color: #000;
+        border: solid 1px #ccc;
+        border-radius: 0;
+        min-width: 80px;
+        padding: 2px;
+      }
+
+      input {
+        outline: none;
+        cursor: pointer;
+      }
+      table {
+        table-layout: fixed;
+        border-collapse: collapse;
+      }
+      tr:hover {
+        background-color: rgba(0, 0, 0, 0.1);
+      }
+      td {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      td:first-of-type,
+      td:last-of-type {
+        text-align: center;
+      }
+
+    </style>
+    <p>List of all the blocked request for "<span id="url">-</span>". You can allow a request by modifying the popup rules (either for this origin or globally) or by adding an origin of a particular type to the global white-list</p>
+    <table width="100%">
+      <colgroup>
+        <col width="100">
+        <col>
+        <col width="200">
+      </colgroup>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>URL</th>
+          <th>white-list</th>
+        </tr>
+      </thead>
+      <template>
+        <tr>
+          <td></td>
+          <td></td>
+          <td><input type="button" value="Add" data-cmd="add"></td>
+        </tr>
+      </template>
+      <tbody>
+      </tbody>
+    </table>
+    <script src="index.js"></script>
+  </body>
+</html>
