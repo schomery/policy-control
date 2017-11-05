@@ -21,7 +21,7 @@ var update = (hostname, ignore = false) => {
     'csp_report': 0,
     'media': 1,
     'websocket': 1,
-    'other': 0
+    'other': 2
   };
   if (hostname) {
     prefs[hostname] = false;

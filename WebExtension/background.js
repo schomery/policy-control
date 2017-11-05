@@ -17,7 +17,7 @@ var prefs = {
   'csp_report': 0,
   'media': 1,
   'websocket': 1,
-  'other': 0,
+  'other': 2,
 
   'bypass.sub_frame': [],
   'bypass.stylesheet': [],

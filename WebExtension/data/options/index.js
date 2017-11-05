@@ -53,3 +53,43 @@ document.getElementById('save').addEventListener('click', () => chrome.storage.l
   restore();
   window.setTimeout(() => info.textContent = '', 750);
 }));
+
+document.getElementById('export').addEventListener('click', () => chrome.storage.local.get(null, prefs => {
+  delete prefs.version;
+  delete prefs.enabled;
+
+  const text = JSON.stringify(prefs, null, '\t');
+  const url = 'data:text/plain;charset=utf-8,' + encodeURIComponent(text);
+
+  fetch(url)
+    .then(res => res.blob())
+    .then(blob => {
+      const objectURL = URL.createObjectURL(blob);
+      const link = Object.assign(document.createElement('a'), {
+        href: objectURL,
+        type: 'application/json',
+        download: 'policy-control-settings.json',
+      });
+      link.dispatchEvent(new MouseEvent('click'));
+      setTimeout(() => URL.revokeObjectURL(objectURL));
+    });
+}));
+
+document.getElementById('import').addEventListener('click', () => {
+  const input = Object.assign(document.createElement('input'), {
+    type: 'file',
+    onchange: function() {
+      const file = this.files[0];
+      const reader = new FileReader();
+      reader.onloadend = event => {
+        input.remove();
+        chrome.storage.local.get(null, prefs => {
+          Object.assign(prefs, JSON.parse(event.target.result));
+          chrome.storage.local.set(prefs, () => window.location.reload());
+        });
+      };
+      reader.readAsText(file, 'utf-8');
+    }
+  });
+  input.click();
+});
