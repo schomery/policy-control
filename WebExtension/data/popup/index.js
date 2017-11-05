@@ -134,7 +134,7 @@ document.getElementById('reset').addEventListener('click', () => {
     'csp_report': 0,
     'media': 1,
     'websocket': 1,
-    'other': 0
+    'other': 2
   }).forEach(([key, value]) => {
     document.getElementById(key).value = value;
     document.getElementById(key).dispatchEvent(new Event('change', {
@@ -147,8 +147,14 @@ document.getElementById('open-log').addEventListener('click', () => chrome.tabs.
   url: '/data/log/index.html?tabId=' + document.body.dataset.tabId
 }));
 
-document.getElementById('open-options').addEventListener('click', () => chrome.runtime.openOptionsPage());
+document.getElementById('open-options').addEventListener(
+  'click',
+  () => chrome.runtime.openOptionsPage(() => window.close())
+);
 document.getElementById('refresh').addEventListener('click', () => {
   const id = Number(document.body.dataset.tabId);
   chrome.tabs.reload(id);
 });
+document.getElementById('open-faqs').addEventListener('click', () => chrome.tabs.create({
+  url: 'http://add0n.com/policy-control.html'
+}));
