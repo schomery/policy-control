@@ -148,3 +148,7 @@ document.getElementById('open-log').addEventListener('click', () => chrome.tabs.
 }));
 
 document.getElementById('open-options').addEventListener('click', () => chrome.runtime.openOptionsPage());
+document.getElementById('refresh').addEventListener('click', () => {
+  const id = Number(document.body.dataset.tabId);
+  chrome.tabs.reload(id);
+});

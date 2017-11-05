@@ -93,12 +93,17 @@
         </tr>
       </tbody>
     </table>
-    <p>
-      <input type="button" value="Options" id="open-options">
-      <input type="button" value="Reset" id="reset" title="Reset rule values to the defaults">
-      <input type="button" value="Save" id="save" title="Save rules globally or just for a single host">
-      <span id="info"></span>
-    </p>
+    <div id="toolbar">
+      <div style="flex: 1">
+        <input type="button" value="Options" id="open-options">
+        <input type="button" value="Refresh Tab" id="refresh">
+      </div>
+      <div>
+        <input type="button" value="Reset" id="reset" title="Reset rule values to the defaults">
+        <input type="button" value="Save" id="save" title="Save rules globally or just for a single host">
+        <span id="info"></span>
+      </div>
+    </div>
     <script src="index.js"></script>
   </body>
 </html>

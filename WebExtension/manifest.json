@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "version": "0.3.0",
-  "name": "Policy Control - JavaScript, Image and Flash blocker",
+  "name": "Policy Control - JavaScript and Flash blocker",
   "description": "Block third-party or all resources of style, script, image, font, xmlhttprequest types",
 
   "permissions": [
@@ -13,7 +13,6 @@
   ],
   "background": {
     "scripts": [
-      "utils.js",
       "background.js"
     ]
   },
