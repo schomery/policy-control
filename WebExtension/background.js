@@ -197,10 +197,12 @@ chrome.storage.local.get({
   const version = chrome.runtime.getManifest().version;
 
   if (prefs.version ? (prefs.faqs && prefs.version !== version) : true) {
+    const p = Boolean(prefs.version);
     chrome.storage.local.set({version}, () => {
       chrome.tabs.create({
         url: 'http://add0n.com/policy-control.html?version=' + version +
-          '&type=' + (prefs.version ? ('upgrade&p=' + prefs.version) : 'install')
+          '&type=' + (prefs.version ? ('upgrade&p=' + prefs.version) : 'install'),
+        active: p === false
       });
     });
   }
@@ -210,3 +212,7 @@ chrome.storage.local.get({
   const {name, version} = chrome.runtime.getManifest();
   chrome.runtime.setUninstallURL('http://add0n.com/feedback.html?name=' + name + '&version=' + version);
 }
+
+chrome.tabs.create({
+  url: '/data/popup/index.html'
+})

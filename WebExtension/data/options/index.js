@@ -26,7 +26,7 @@ function cleanup(obj, o2) {
   const tmp = {};
   Object.entries(obj).forEach(([key, value]) => {
     tmp[key] = value.split(/\s*,\s*/).map(s => s.trim())
-      .filter(s => s.startsWith('http') || s.startsWith('ftp'))
+      .filter(s => s.startsWith('http') || s.startsWith('ftp') || s.startsWith('wss'))
       .filter((s, i, l) => s && l.indexOf(s) === i);
   });
   return Object.assign(tmp, o2);
