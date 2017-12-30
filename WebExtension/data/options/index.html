@@ -30,19 +30,19 @@
         <td><input type="checkbox" id="auto"></td>
       </tr>
     </table>
-    <p>Policy Control is blocking requests based on the general filtering rules defined in the popup (either for a single hostname or globally). In this section, you can define custom origins (e.g. https://www.google.com/ or https://*.google.com) to bypass the blockage. Note that the list only supports origins (for performance considerations, there is no RegExp support). Enter a comma-separated list of origins to bypass the general blockage rules for each category.</p>
+    <p>Policy Control is blocking requests based on the general filtering rules defined in the popup (either for a single hostname or globally). In this section, you can define custom origins (e.g. https://www.google.com/ or https://*.google.com) to bypass the blockage. Use "*" for Wild-card matching and "r:" to define a RegExp matching. Enter a comma-separated list of origins to bypass the general blockage rules for each category.</p>
     <table width="100%">
       <tr>
         <td>Font (@font-face)</td>
-        <td><input type="text" id="bypass.font" placeholder="e.g.: https://www.google.com/, http://www.wikipedia.com/"></td>
+        <td><input type="text" id="bypass.font" placeholder="e.g.: https://www.google.com/"></td>
       </tr>
       <tr>
         <td>Image</td>
-        <td><input type="text" id="bypass.image"></td>
+        <td><input type="text" id="bypass.image" placeholder="e.g.: https://*.google.com/"></td>
       </tr>
       <tr>
         <td>Media (audio and video)</td>
-        <td><input type="text" id="bypass.media"></td>
+        <td><input type="text" id="bypass.media" placeholder="e.g.: r:jquery[^\/]*\.js$"></td>
       </tr>
       <tr>
         <td>Object (plugin-handled content)</td>
@@ -81,9 +81,11 @@
         <td><input type="text" id="bypass.other"></td>
       </tr>
     </table>
-    <p>
+    <p style="display: flex">
+      <input type="button" value="Support Development" id="support">
       <input type="button" value="Import" id="import">
       <input type="button" value="Export" id="export">
+      <span style="flex: 1;"></span>
       <input type="button" value="Save" id="save">
       <span id="info"></span>
     </p>

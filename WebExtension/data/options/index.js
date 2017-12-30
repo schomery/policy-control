@@ -26,7 +26,7 @@ function cleanup(obj, o2) {
   const tmp = {};
   Object.entries(obj).forEach(([key, value]) => {
     tmp[key] = value.split(/\s*,\s*/).map(s => s.trim())
-      .filter(s => s.startsWith('http') || s.startsWith('ftp') || s.startsWith('wss'))
+      .filter(s => s.startsWith('http') || s.startsWith('ftp') || s.startsWith('wss') || s.startsWith('r:'))
       .filter((s, i, l) => s && l.indexOf(s) === i);
   });
   return Object.assign(tmp, o2);
@@ -93,3 +93,7 @@ document.getElementById('import').addEventListener('click', () => {
   });
   input.click();
 });
+
+document.getElementById('support').addEventListener('click', () => chrome.tabs.create({
+  url: chrome.runtime.getManifest().homepage_url + '?rd=donate'
+}));
