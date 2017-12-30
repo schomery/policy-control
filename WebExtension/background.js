@@ -121,8 +121,9 @@ var block = d => {
       return push(d);
     case 1: {
       if (tabs[d.tabId]) {
-        const rtn = !d.url.startsWith(tabs[d.tabId].origin);
-        //log(`[${rtn ? 'blocked' : 'allowed'}]`, d.type, d.url, 'request rule is 1 and origin is ' + tabs[d.tabId].origin, 'module.block');
+        let rtn = !d.url.startsWith(tabs[d.tabId].origin);
+        rtn = rtn && d.url.indexOf('.' + tabs[d.tabId].hostname + '/') === -1;
+        // log(`[${rtn ? 'blocked' : 'allowed'}]`, d.type, d.url, 'request rule is 1 and origin is ' + tabs[d.tabId].origin, 'module.block');
         return rtn && push(d);
       }
       else {
