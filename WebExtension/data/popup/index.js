@@ -1,5 +1,7 @@
 'use strict';
 
+document.body.style.width = (localStorage.getItem('width') || '500') + 'px';
+
 var dictionary = {
   0: 'Block all',
   1: 'Block third-party',
@@ -153,7 +155,9 @@ document.getElementById('open-options').addEventListener(
 );
 document.getElementById('refresh').addEventListener('click', () => {
   const id = Number(document.body.dataset.tabId);
-  chrome.tabs.reload(id);
+  chrome.tabs.reload(id, {
+    bypassCache: true
+  });
 });
 document.getElementById('open-faqs').addEventListener('click', () => chrome.tabs.create({
   url: 'http://add0n.com/policy-control.html'

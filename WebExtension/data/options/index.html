@@ -29,6 +29,10 @@
         <td><label for="auto">Automatically enable "Policy Rules" after a restart</label></td>
         <td><input type="checkbox" id="auto"></td>
       </tr>
+      <tr>
+        <td><label for="width">Popup width (in pixels between 500 to 750)</label></td>
+        <td><input type="number" id="width" min=500 max=750></td>
+      </tr>
     </table>
     <p>Policy Control is blocking requests based on the general filtering rules defined in the popup (either for a single hostname or globally). In this section, you can define custom origins (e.g. https://www.google.com/ or https://*.google.com) to bypass the blockage. Use "*" for Wild-card matching and "r:" to define a RegExp matching. Enter a comma-separated list of origins to bypass the general blockage rules for each category.</p>
     <table width="100%">
