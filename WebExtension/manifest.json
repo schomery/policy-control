@@ -1,11 +1,11 @@
 {
   "manifest_version": 2,
-  "version": "0.3.3",
+  "version": "0.3.4",
   "name": "Policy Control - JavaScript and Flash blocker",
   "description": "Block third-party or all resources of style, script, image, font, xmlhttprequest types",
 
   "permissions": [
-    "<all_urls>",
+    "*://*/*",
     "storage",
     "tabs",
     "webRequest",

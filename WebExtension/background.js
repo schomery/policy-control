@@ -57,6 +57,22 @@ var filter = (d, callback) => {
       scheme,
       blocked: []
     };
+    // find the actual domain name
+    chrome.tabs.executeScript(d.tabId, {
+      'runAt': 'document_start',
+      'code': `
+(function(){
+  var i=0, domain=document.domain, p=domain.split('.'), s='_gd'+(new Date()).getTime();
+  while(i < (p.length-1) && document.cookie.indexOf(s+'='+s) === -1){
+    domain = p.slice(-1-(++i)).join('.');
+    document.cookie = s+"="+s+";domain="+domain+";";
+  }
+  document.cookie = s+"=;expires=Thu, 01 Jan 1970 00:00:01 GMT;domain="+domain+";";
+  return domain;
+})()
+      `
+    }, ([domain]) => tabs[d.tabId].domain = domain);
+
     //log('[allowed]', d.type, d.url, 'main_frame request', 'module.filter');
     return false;
   }
@@ -114,6 +130,10 @@ var push = d => {
 
 var block = d => {
   const rules = tabs[d.tabId] ? prefs[tabs[d.tabId].hostname] || prefs : prefs;
+  // https://github.com/schomery/policy-control/issues/16
+  if (d.type === 'imageset') {
+    d.type = 'image';
+  }
   // use "other" type if d.type is not supported
   switch (d.type in rules ? rules[d.type] : rules.other) {
     case 0:
@@ -121,9 +141,18 @@ var block = d => {
       return push(d);
     case 1: {
       if (tabs[d.tabId]) {
-        let rtn = !d.url.startsWith(tabs[d.tabId].origin);
-        rtn = rtn && d.url.indexOf('.' + tabs[d.tabId].hostname + '/') === -1;
-        // log(`[${rtn ? 'blocked' : 'allowed'}]`, d.type, d.url, 'request rule is 1 and origin is ' + tabs[d.tabId].origin, 'module.block');
+        let rtn = d.url.startsWith(tabs[d.tabId].origin) === false;
+        // sub-domain check
+        if (tabs[d.tabId].domain) {
+          // sub-domain (http://cmd.add0n.com)
+          rtn = rtn && d.url.indexOf('.' + tabs[d.tabId].domain + '/') === -1;
+          // domain (http://add0n.com)
+          rtn = rtn && d.url.indexOf('//' + tabs[d.tabId].domain + '/') === -1;
+        }
+        else { // temporary solution until "domain" is ready
+          rtn = rtn && d.url.indexOf('.' + tabs[d.tabId].hostname + '/') === -1;
+        }
+        //log(`[${rtn ? 'blocked' : 'allowed'}]`, d.type, d.url, 'request rule is 1 and origin is ' + tabs[d.tabId].origin, 'module.block');
         return rtn && push(d);
       }
       else {
