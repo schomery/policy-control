@@ -55,6 +55,8 @@ var filter = (d, callback) => {
       origin,
       hostname,
       scheme,
+      // a temporary solution until the actual domain is resolved asynchronously
+      domain: hostname.split('.').slice(-2).join('.'),
       blocked: []
     };
     // find the actual domain name
@@ -142,16 +144,11 @@ var block = d => {
     case 1: {
       if (tabs[d.tabId]) {
         let rtn = d.url.startsWith(tabs[d.tabId].origin) === false;
-        // sub-domain check
-        if (tabs[d.tabId].domain) {
-          // sub-domain (http://cmd.add0n.com)
-          rtn = rtn && d.url.indexOf('.' + tabs[d.tabId].domain + '/') === -1;
-          // domain (http://add0n.com)
-          rtn = rtn && d.url.indexOf('//' + tabs[d.tabId].domain + '/') === -1;
-        }
-        else { // temporary solution until "domain" is ready
-          rtn = rtn && d.url.indexOf('.' + tabs[d.tabId].hostname + '/') === -1;
-        }
+        // sub-domain (http://cmd.add0n.com)
+        rtn = rtn && d.url.indexOf('.' + tabs[d.tabId].domain + '/') === -1;
+        // domain (http://add0n.com)
+        rtn = rtn && d.url.indexOf('//' + tabs[d.tabId].domain + '/') === -1;
+
         //log(`[${rtn ? 'blocked' : 'allowed'}]`, d.type, d.url, 'request rule is 1 and origin is ' + tabs[d.tabId].origin, 'module.block');
         return rtn && push(d);
       }
